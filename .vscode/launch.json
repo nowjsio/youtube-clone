@@ -1,0 +1,16 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "comment": "npm start 하고 F5 || debug start 버튼 클릭해서 디버깅 해야함, 먼저 실행하는게 포인트",
+    "configurations": [
+        {
+            "type": "pwa-chrome",
+            "request": "launch",
+            "name": "Launch Chrome against localhost",
+            "url": "http://192.168.55.63:3001",
+            "webRoot": "${workspaceFolder}/src"
+        }
+    ]
+}
