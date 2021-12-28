@@ -1,32 +1,54 @@
-import axios from 'axios';
-
 import config from '../config/config';
 
 const searchUrl = 'https://youtube.googleapis.com/youtube/v3/search?';
+const popularUrl = 'https://youtube.googleapis.com/youtube/v3/videos?';
 const defaultOptions = {
   part: 'snippet',
-  maxResult: 25,
+  maxResult: 5,
   key: config.youtubeApiKey,
 };
 
-const search = async (
-  query,
-  maxResult = defaultOptions.maxResult,
+// eslint-disable-next-line import/prefer-default-export
+export const searchPopular = async (
   part = defaultOptions.part,
+  maxResult = defaultOptions.maxResult,
 ) => {
-  let sanitizedUrl = query;
-  if (query === undefined || query === null) {
-    sanitizedUrl = '';
-  }
-  const url = `${searchUrl}part=${part}&maxResult=${maxResult}&q=${sanitizedUrl}&key=${defaultOptions.key}`;
+  const url = `${popularUrl}part=${part}&maxResult=${maxResult}&key=${defaultOptions.key}&chart=mostPopular`;
+  const requestOptions = {
+    method: 'GET',
+    redirect: 'follow',
+  };
   try {
-    const response = await axios.get(url);
-    const searchItems = response.data.items;
-    return searchItems.map(item => item.id);
-  } catch (error) {
-    console.error(error);
+    const data = await fetch(url, requestOptions);
+    const json = await data.json();
+    return json;
+  } catch (e) {
+    console.error(e);
+    throw new Error(e);
   }
-  return 'test';
 };
 
-export default search;
+export const searchVideos = async (
+  query,
+  part = defaultOptions.part,
+  maxResult = defaultOptions.maxResult,
+) => {
+  let url;
+  if (query === undefined || query === null) {
+    url = `${searchUrl}part=${part}&maxResult=${maxResult}&key=${defaultOptions.key}`;
+  } else {
+    url = `${searchUrl}part=${part}&maxResult=${maxResult}&key=${defaultOptions.key}&q=${query}`;
+  }
+  const requestOptions = {
+    method: 'GET',
+    redirect: 'follow',
+  };
+  try {
+    const data = await fetch(url, requestOptions);
+    const json = await data.json();
+    return json;
+  } catch (e) {
+    console.error(e);
+    throw new Error(e);
+  }
+};

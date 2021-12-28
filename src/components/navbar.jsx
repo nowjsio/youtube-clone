@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Navbar = props => {
-  const { inputRef, formRef, clickSearch } = props;
+  const { inputRef, formRef, handleSearch } = props;
   return (
     <nav className="youtube-nav">
       <form ref={formRef} action="" className="search-form">
@@ -10,7 +10,7 @@ const Navbar = props => {
           type="button"
           value="click"
           className="youtube-search-button"
-          onClick={event => clickSearch(event)}
+          onClick={event => handleSearch(event)}
         />
       </form>
     </nav>

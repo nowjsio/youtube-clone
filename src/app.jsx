@@ -1,22 +1,35 @@
-import React, { useRef } from 'react';
-import './app.css';
+import React, { useEffect, useRef, useState } from 'react';
+import { searchPopular, searchVideos } from './api/search';
 import Navbar from './components/navbar';
-import SearchItems from './components/searchItems';
-import search from './api/search';
+import VideoList from './components/video-list/video-list';
 
 const App = () => {
+  const [videos, setVideos] = useState([]);
   const inputRef = useRef();
   const formRef = useRef();
-  let searchedItems = search('');
-  const clickSearch = async event => {
+  const handleSearch = async event => {
     event.preventDefault();
-    searchedItems = await search(inputRef.current.value);
+    const searchedName = inputRef.current.value;
+    const searchJson = await searchVideos(searchedName);
+    setVideos(searchJson.items.map(item => item.snippet));
     formRef.current.reset();
   };
+  useEffect(async () => {
+    try {
+      const popularJson = await searchPopular();
+      setVideos(popularJson.items.map(item => item.snippet));
+    } catch (e) {
+      console.error('[!]ERROR: ', e);
+    }
+  }, []);
   return (
     <>
-      <Navbar inputRef={inputRef} formRef={formRef} clickSearch={clickSearch} />
-      <SearchItems items={searchedItems} />
+      <Navbar
+        inputRef={inputRef}
+        formRef={formRef}
+        handleSearch={handleSearch}
+      />
+      <VideoList videos={videos} />
     </>
   );
 };
