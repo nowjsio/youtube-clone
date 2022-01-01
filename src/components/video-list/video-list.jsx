@@ -6,7 +6,7 @@ const VideoList = props => {
   return (
     <ul>
       {videos.map(video => {
-        return <VideoItem key={video.channelId} title={video.title} />;
+        return <VideoItem key={video.snippet.channelId} video={video} />;
       })}
     </ul>
   );

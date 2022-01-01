@@ -11,13 +11,13 @@ const App = () => {
     event.preventDefault();
     const searchedName = inputRef.current.value;
     const searchJson = await searchVideos(searchedName);
-    setVideos(searchJson.items.map(item => item.snippet));
+    setVideos(searchJson.items);
     formRef.current.reset();
   };
   useEffect(async () => {
     try {
       const popularJson = await searchPopular();
-      setVideos(popularJson.items.map(item => item.snippet));
+      setVideos(popularJson.items);
     } catch (e) {
       console.error('[!]ERROR: ', e);
     }
