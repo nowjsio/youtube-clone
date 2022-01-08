@@ -4,7 +4,7 @@ const searchUrl = 'https://youtube.googleapis.com/youtube/v3/search?';
 const popularUrl = 'https://youtube.googleapis.com/youtube/v3/videos?';
 const defaultOptions = {
   part: 'snippet',
-  maxResult: 5,
+  maxResult: 6,
   key: config.youtubeApiKey,
 };
 
@@ -13,7 +13,7 @@ export const searchPopular = async (
   part = defaultOptions.part,
   maxResult = defaultOptions.maxResult,
 ) => {
-  const url = `${popularUrl}part=${part}&maxResult=${maxResult}&key=${defaultOptions.key}&chart=mostPopular`;
+  const url = `${popularUrl}part=${part}&maxResults=${maxResult}&key=${defaultOptions.key}&chart=mostPopular`;
   const requestOptions = {
     method: 'GET',
     redirect: 'follow',
@@ -35,9 +35,9 @@ export const searchVideos = async (
 ) => {
   let url;
   if (query === undefined || query === null) {
-    url = `${searchUrl}part=${part}&maxResult=${maxResult}&key=${defaultOptions.key}`;
+    url = `${searchUrl}part=${part}&maxResults=${maxResult}&key=${defaultOptions.key}`;
   } else {
-    url = `${searchUrl}part=${part}&maxResult=${maxResult}&key=${defaultOptions.key}&q=${query}`;
+    url = `${searchUrl}part=${part}&maxResults=${maxResult}&key=${defaultOptions.key}&q=${query}`;
   }
   const requestOptions = {
     method: 'GET',
