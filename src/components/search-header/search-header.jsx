@@ -1,16 +1,25 @@
 import React from 'react';
 import styles from './search-header.module.css';
 
-const SearchHeaer = () => {
-  //   const { inputRef, formRef, handleSearch } = props;
+const SearchHeaer = props => {
+  const { inputRef, handleSearch } = props;
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
         <img className={styles.img} src="/images/logo.png" alt="logo" />
         <h1 className={styles.title}> Youtube </h1>
       </div>
-      <input className={styles.input} type="text" placeholder="Search Item.." />
-      <button className={styles.button} type="submit">
+      <input
+        ref={inputRef}
+        className={styles.input}
+        type="text"
+        placeholder="Search Item.."
+      />
+      <button
+        className={styles.button}
+        type="submit"
+        onClick={event => handleSearch(event)}
+      >
         <img
           className={styles.buttonImg}
           src="/images/search.png"

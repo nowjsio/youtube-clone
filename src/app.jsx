@@ -7,13 +7,12 @@ import styles from './app.module.css';
 const App = () => {
   const [videos, setVideos] = useState([]);
   const inputRef = useRef();
-  const formRef = useRef();
   const handleSearch = async event => {
     event.preventDefault();
     const searchedName = inputRef.current.value;
     const searchJson = await searchVideos(searchedName);
     setVideos(searchJson.items);
-    formRef.current.reset();
+    inputRef.current.value = '';
   };
   useEffect(async () => {
     try {
@@ -25,11 +24,7 @@ const App = () => {
   }, []);
   return (
     <div className={styles.app}>
-      <SearchHeaer
-        inputRef={inputRef}
-        formRef={formRef}
-        handleSearch={handleSearch}
-      />
+      <SearchHeaer inputRef={inputRef} handleSearch={handleSearch} />
       <VideoList videos={videos} />
     </div>
   );
