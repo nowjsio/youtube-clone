@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { searchPopular, searchVideos } from './api/search';
-import Navbar from './components/navbar';
+import SearchHeaer from './components/search-header/search-header';
 import VideoList from './components/video-list/video-list';
+import styles from './app.module.css';
 
 const App = () => {
   const [videos, setVideos] = useState([]);
@@ -23,14 +24,14 @@ const App = () => {
     }
   }, []);
   return (
-    <>
-      <Navbar
+    <div className={styles.app}>
+      <SearchHeaer
         inputRef={inputRef}
         formRef={formRef}
         handleSearch={handleSearch}
       />
       <VideoList videos={videos} />
-    </>
+    </div>
   );
 };
 
