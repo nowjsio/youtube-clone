@@ -1,17 +1,23 @@
 import React from 'react';
 import styles from './video-item.module.css';
 
-const VideoItem = props => {
+const VideoItem = ({
+  video,
+  video: {
+    snippet: { thumbnails, title, channelTitle },
+  },
+  handleSelect,
+}) => {
   // const { title } = props.video.snippet.title;
-  const {
-    video: {
-      snippet: { thumbnails, title, channelTitle },
-    },
-  } = props;
+  // eslint-disable-next-line react/destructuring-assignment
 
   return (
     <li className={styles.container}>
-      <div className={styles.video}>
+      <div
+        className={styles.video}
+        onClick={() => handleSelect(video)}
+        aria-hidden="true"
+      >
         <img
           className={styles.thumbnail}
           src={thumbnails.medium.url}

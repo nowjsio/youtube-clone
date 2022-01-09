@@ -1,16 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
 import SearchHeaer from './components/search-header/search-header';
 import VideoList from './components/video-list/video-list';
+import VideoDetail from './components/video-detail/vedeo-detail';
 import styles from './app.module.css';
 
 const App = ({ youtube }) => {
   const [videos, setVideos] = useState([]);
+  const [selectedVideo, setSelectedVideo] = useState(null);
   const inputRef = useRef();
   const handleSearch = async event => {
     event.preventDefault();
     const searchedName = inputRef.current.value;
     const searchJson = await youtube.search(searchedName);
     setVideos(searchJson.items);
+    setSelectedVideo(null);
+  };
+  const handleSelect = async video => {
+    setSelectedVideo(video);
   };
   useEffect(async () => {
     try {
@@ -23,7 +29,8 @@ const App = ({ youtube }) => {
   return (
     <div className={styles.app}>
       <SearchHeaer inputRef={inputRef} handleSearch={handleSearch} />
-      <VideoList videos={videos} />
+      {selectedVideo && <VideoDetail video={selectedVideo} />}
+      <VideoList videos={videos} handleSelect={handleSelect} />
     </div>
   );
 };
