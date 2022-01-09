@@ -7,7 +7,6 @@ const VideoList = props => {
   return (
     <ul className={styles.videos}>
       {videos.map(video => {
-        console.log(video.id);
         return <VideoItem key={video.id} video={video} />;
       })}
     </ul>
