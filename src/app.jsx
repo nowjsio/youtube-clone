@@ -1,22 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { searchPopular, searchVideos } from './api/search';
 import SearchHeaer from './components/search-header/search-header';
 import VideoList from './components/video-list/video-list';
 import styles from './app.module.css';
 
-const App = () => {
+const App = ({ youtube }) => {
   const [videos, setVideos] = useState([]);
   const inputRef = useRef();
   const handleSearch = async event => {
     event.preventDefault();
     const searchedName = inputRef.current.value;
-    const searchJson = await searchVideos(searchedName);
+    const searchJson = await youtube.search(searchedName);
     setVideos(searchJson.items);
-    inputRef.current.value = '';
   };
   useEffect(async () => {
     try {
-      const popularJson = await searchPopular();
+      const popularJson = await youtube.mostPopular();
       setVideos(popularJson.items);
     } catch (e) {
       console.error('[!]ERROR: ', e);

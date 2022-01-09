@@ -2,11 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './app';
+import Youtube from './service/youtube';
+import config from './config/config';
 
+const youtube = new Youtube(config.youtubeApiKey);
 ReactDOM.render(
   // eslint-disable-next-line react/jsx-filename-extension
   <React.StrictMode>
-    <App />
+    <App youtube={youtube} />
   </React.StrictMode>,
   document.getElementById('root'),
 );
