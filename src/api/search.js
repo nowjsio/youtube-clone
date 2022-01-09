@@ -13,7 +13,7 @@ export const searchPopular = async (
   part = defaultOptions.part,
   maxResult = defaultOptions.maxResult,
 ) => {
-  const url = `${popularUrl}part=${part}&maxResults=${maxResult}&key=${defaultOptions.key}&chart=mostPopular`;
+  const url = `${popularUrl}part=${part}&maxResults=${maxResult}&key=${defaultOptions.key}&chart=mostPopular&type=video`;
   const requestOptions = {
     method: 'GET',
     redirect: 'follow',
@@ -35,9 +35,9 @@ export const searchVideos = async (
 ) => {
   let url;
   if (query === undefined || query === null) {
-    url = `${searchUrl}part=${part}&maxResults=${maxResult}&key=${defaultOptions.key}`;
+    url = `${searchUrl}part=${part}&maxResults=${maxResult}&key=${defaultOptions.key}&type=video`;
   } else {
-    url = `${searchUrl}part=${part}&maxResults=${maxResult}&key=${defaultOptions.key}&q=${query}`;
+    url = `${searchUrl}part=${part}&maxResults=${maxResult}&key=${defaultOptions.key}&q=${query}&type=video`;
   }
   const requestOptions = {
     method: 'GET',
@@ -46,7 +46,11 @@ export const searchVideos = async (
   try {
     const data = await fetch(url, requestOptions);
     const json = await data.json();
-    return json;
+    const retJson = {
+      ...json,
+      items: json.items.map(item => ({ ...item, id: item.id.videoId })),
+    };
+    return retJson;
   } catch (e) {
     console.error(e);
     throw new Error(e);
