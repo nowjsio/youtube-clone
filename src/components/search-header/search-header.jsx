@@ -14,6 +14,9 @@ const SearchHeaer = props => {
         className={styles.input}
         type="text"
         placeholder="Search Item.."
+        onKeyDown={event => {
+          if (event.key === 'Enter') handleSearch(event);
+        }}
       />
       <button
         className={styles.button}
