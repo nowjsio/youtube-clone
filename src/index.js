@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './app';
-import Youtube from './service/youtube';
+import Youtube from './service/youtube-axios';
 import config from './config/config';
 
 const youtube = new Youtube(config.youtubeApiKey);
