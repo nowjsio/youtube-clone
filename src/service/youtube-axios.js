@@ -1,11 +1,6 @@
-import axios from 'axios';
-
 export default class Youtube {
-  constructor(key) {
-    this.youtube = axios.create({
-      baseURL: 'https://youtube.googleapis.com/youtube/v3',
-      params: { key },
-    });
+  constructor(httpClient) {
+    this.youtube = httpClient;
     this.apiDefaultOptions = {
       part: 'snippet',
       maxResults: 6,

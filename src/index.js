@@ -1,11 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 import './index.css';
 import App from './app';
 import Youtube from './service/youtube-axios';
 import config from './config/config';
 
-const youtube = new Youtube(config.youtubeApiKey);
+const httpClient = axios.create({
+  baseURL: 'https://youtube.googleapis.com/youtube/v3',
+  params: { key: config.youtubeApiKey },
+});
+const youtube = new Youtube(httpClient);
 ReactDOM.render(
   // eslint-disable-next-line react/jsx-filename-extension
   <React.StrictMode>
