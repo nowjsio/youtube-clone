@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import SearchHeader from './components/search-header/search-header';
 import VideoList from './components/video-list/video-list';
 import VideoDetail from './components/video-detail/vedeo-detail';
@@ -8,16 +8,22 @@ const App = ({ youtube }) => {
   const [videos, setVideos] = useState([]);
   const [selectedVideo, setSelectedVideo] = useState(null);
   const inputRef = useRef();
-  const handleSearch = async event => {
-    event.preventDefault();
-    const searchedName = inputRef.current.value;
-    const searchJson = await youtube.search(searchedName);
-    setVideos(searchJson.items);
-    setSelectedVideo(null);
-  };
-  const handleSelect = async video => {
-    setSelectedVideo(video);
-  };
+  const handleSearch = useCallback(
+    async event => {
+      event.preventDefault();
+      const searchedName = inputRef.current.value;
+      const searchJson = await youtube.search(searchedName);
+      setVideos(searchJson.items);
+      setSelectedVideo(null);
+    },
+    [youtube],
+  );
+  const handleSelect = useCallback(
+    async video => {
+      setSelectedVideo(video);
+    },
+    [youtube],
+  );
   useEffect(async () => {
     try {
       const popularJson = await youtube.mostPopular();
@@ -25,7 +31,7 @@ const App = ({ youtube }) => {
     } catch (e) {
       console.error('[!]ERROR: ', e);
     }
-  }, []);
+  }, [youtube]);
   return (
     <div className={styles.app}>
       <SearchHeader inputRef={inputRef} handleSearch={handleSearch} />

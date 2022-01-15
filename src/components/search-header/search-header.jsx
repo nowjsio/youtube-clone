@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styles from './search-header.module.css';
 
-const SearchHeader = props => {
+const SearchHeader = memo(props => {
   const { inputRef, handleSearch } = props;
+  console.log('[!] re-render SearchHeader');
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
@@ -44,6 +45,6 @@ const SearchHeader = props => {
   //       </form>
   //     </header>
   //   );
-};
+});
 
 export default SearchHeader;
