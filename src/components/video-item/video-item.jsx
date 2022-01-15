@@ -7,12 +7,13 @@ const VideoItem = ({
     snippet: { thumbnails, title, channelTitle },
   },
   handleSelect,
+  display,
 }) => {
   // const { title } = props.video.snippet.title;
   // eslint-disable-next-line react/destructuring-assignment
-
+  const displayType = display === 'list' ? styles.list : styles.grid;
   return (
-    <li className={styles.container}>
+    <li className={`${styles.container} ${displayType}`}>
       <div
         className={styles.video}
         onClick={() => handleSelect(video)}

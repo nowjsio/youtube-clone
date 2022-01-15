@@ -1,7 +1,24 @@
 import React from 'react';
+import styles from './vedeo-detail.module.css';
 
-const VideoDetail = ({ video }) => {
-  return <h1>{video.snippet.title}</h1>;
+const VideoDetail = ({ video, video: { snippet } }) => {
+  return (
+    <section className={styles.detail}>
+      <iframe
+        className={styles.video}
+        type="text/html"
+        title="sample"
+        width="100%"
+        height="500px"
+        src={`http://www.youtube.com/embed/${video.id}`}
+        frameBorder="0"
+        allowFullScreen
+      />
+      <h2> {snippet.title}</h2>
+      <h3>{snippet.channelTitle}</h3>
+      <pre className={styles.description}>{snippet.description}</pre>
+    </section>
+  );
 };
 
 export default VideoDetail;

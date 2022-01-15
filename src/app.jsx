@@ -29,8 +29,20 @@ const App = ({ youtube }) => {
   return (
     <div className={styles.app}>
       <SearchHeaer inputRef={inputRef} handleSearch={handleSearch} />
-      {selectedVideo && <VideoDetail video={selectedVideo} />}
-      <VideoList videos={videos} handleSelect={handleSelect} />
+      <section className={styles.content}>
+        {selectedVideo && (
+          <div className={styles.detail}>
+            <VideoDetail video={selectedVideo} />
+          </div>
+        )}
+        <div className={styles.list}>
+          <VideoList
+            videos={videos}
+            handleSelect={handleSelect}
+            display={selectedVideo ? 'list' : 'grid'}
+          />
+        </div>
+      </section>
     </div>
   );
 };
