@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import SearchHeaer from './components/search-header/search-header';
+import SearchHeader from './components/search-header/search-header';
 import VideoList from './components/video-list/video-list';
 import VideoDetail from './components/video-detail/vedeo-detail';
 import styles from './app.module.css';
@@ -28,7 +28,7 @@ const App = ({ youtube }) => {
   }, []);
   return (
     <div className={styles.app}>
-      <SearchHeaer inputRef={inputRef} handleSearch={handleSearch} />
+      <SearchHeader inputRef={inputRef} handleSearch={handleSearch} />
       <section className={styles.content}>
         {selectedVideo && (
           <div className={styles.detail}>

@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './search-header.module.css';
 
-const SearchHeaer = props => {
+const SearchHeader = props => {
   const { inputRef, handleSearch } = props;
   return (
     <header className={styles.header}>
@@ -46,4 +46,4 @@ const SearchHeaer = props => {
   //   );
 };
 
-export default SearchHeaer;
+export default SearchHeader;
